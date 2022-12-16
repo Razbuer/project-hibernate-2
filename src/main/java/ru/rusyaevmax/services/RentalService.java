@@ -63,7 +63,7 @@ public class RentalService {
                 }
             }
 
-            if (Objects.isNull(inventories))
+            if (Objects.isNull(inventory))
                 return "Фильм не может быть арендован";
 
             Customer customer = customerDAO.getById(customerId);
@@ -91,6 +91,13 @@ public class RentalService {
     }
 
     public boolean checkCanBeRentalFilm(int inventoryId) {
+        List<Rental> listByInventoryId = rentalDAO.getListByInventoryId(inventoryId);
+
+        if (!listByInventoryId.isEmpty())
+            for (Rental rental : listByInventoryId)
+                if (Objects.isNull(rental.getReturnDate()))
+                    return false;
+
         return true;
     }
 }

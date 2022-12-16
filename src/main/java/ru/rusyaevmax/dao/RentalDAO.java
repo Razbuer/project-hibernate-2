@@ -33,4 +33,18 @@ public class RentalDAO extends AbstractDAO<Rental> {
                 .setParameter("filmId", filmId)
                 .list();
     }
+
+    public List<Rental> getListByInventoryId(int inventoryId) {
+        String HQL = """
+                SELECT DISTINCT r
+                  FROM Rental AS r
+                  LEFT JOIN FETCH r.inventory AS i
+                 WHERE i.id = :inventoryId
+              """;
+
+        return sessionFactory.getCurrentSession()
+                .createQuery(HQL, Rental.class)
+                .setParameter("inventoryId", inventoryId)
+                .list();
+        }
 }
