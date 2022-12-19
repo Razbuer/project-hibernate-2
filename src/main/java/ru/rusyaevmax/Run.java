@@ -34,7 +34,7 @@ public class Run {
 
 //        run.returnFilm();
 
-        run.newRentalFilm();
+//        run.newRentalFilm();
 
 //        run.addNewFilm();
     }
